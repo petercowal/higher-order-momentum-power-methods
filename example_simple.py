@@ -1,0 +1,58 @@
+import numpy as np
+from powermethods import powermethod, momentum, momentum2, momentum_dynamic
+import matplotlib.pyplot as plt
+
+N = 4
+A = np.array([[1.01, 0, 0, 0], [0, 1, 0, 0], [0, 0, 0, -1/3], [0, 0, 1/3, 0]])
+U1 = np.zeros(N)
+U1[0] = 1
+
+iter = 200 # iteration count
+
+beta = 1/4
+gamma = 4/27
+
+spectral_gap = 0.01
+
+xinit = (np.random.rand(N)+1j*np.random.rand(N)).reshape(-1,1)
+
+print("A=\n",A)
+print("xinit=\n",xinit)
+
+# apply different power methods for comparison purposes
+x1, errs1 = powermethod(A, xinit, iter, xtrue=U1)
+print("power method err=\n",errs1[-1])
+
+print(errs1)
+
+x2, errs2 = momentum(A, xinit, iter, beta, xtrue=U1)
+print("momentum method err=\n",errs2[-1])
+
+x3, errs3 = momentum2(A, xinit, iter, gamma, xtrue=U1)
+print("order 2 momentum method err=\n",errs3[-1])
+
+x4, errs4 = momentum_dynamic(A, xinit, iter, xtrue=U1)
+print("order 2 dynamic momentum method err=\n",errs4[-1])
+
+
+# plot results
+iters = np.arange(iter+1)
+plt.subplots(figsize=(4, 3))
+
+plt.semilogy(iters, errs1, '-', marker='x', markevery=iter//10, label = 'power method')
+plt.semilogy(iters, errs2, '-', marker='s', markevery=iter//10, label = 'momentum')
+plt.semilogy(iters, errs3, '-', marker='o', markevery=iter//10, label = 'order 2 momentum')
+plt.semilogy(iters, errs4, '-', marker='*', markevery=iter//10, label = 'order 2 dyn momentum')
+
+
+asympt = 0.5*np.exp(-iters*np.sqrt(spectral_gap))
+plt.semilogy(iters, asympt * errs3[100]/asympt[100], '--', label = r"$O(e^{-n\sqrt{\varepsilon}})$")
+plt.ylim(1e-10, 10)
+
+
+plt.legend()
+plt.xlabel("n")
+plt.ylabel("relative error")
+plt.tight_layout()
+# plt.savefig(f"{testname}_relerr.eps")
+plt.show()
