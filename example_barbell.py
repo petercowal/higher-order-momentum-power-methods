@@ -2,7 +2,7 @@ import numpy as np
 from powermethods import powermethod, momentum, momentum2, momentum_dynamic
 import matplotlib.pyplot as plt
 
-
+# generate barbell graph transition matrix
 N = 160
 p = 1/10
 
@@ -17,15 +17,24 @@ B = np.block([
 B[N,N-1] = 1
 B[N-1,N] = 1
 
-Dinv = np.diag(1/np.sum(B, axis=1))
+Dinv = np.diag(1/np.sum(B, axis=0))
 
 A = B @ Dinv
+
+plt.figure()
+plt.imshow(A)
+plt.colorbar()
 
 # iteration count
 iter = 500
 
 # compute eigenvalues and plot them for reference
 eigs, U = np.linalg.eig(A)
+# sort them from largest to smallest magnitude
+idx = np.argsort(-np.abs(eigs))
+eigs = eigs[idx]
+U = U[:, idx]
+
 U1 = U[:, 0]
 
 plt.subplots()
@@ -37,7 +46,7 @@ plt.plot(np.cos(theta), np.sin(theta), ':', label = "$|z| = 1$")
 plt.plot(np.real(curve), np.imag(curve), '--', label = "$\gamma^{(3)}$")
 
 plt.plot(np.real(eigs), np.imag(eigs), '.', label = "$\lambda_n$")
-#plt.legend()
+plt.legend()
 plt.xlim(-1.2, 1.2)
 plt.ylim(-1.2, 1.2)
 plt.axis('square')
@@ -50,11 +59,9 @@ gamma = 4*np.abs(eigs[1])**3/27
 # relative gap between magnitude of 1st and 2nd eigenvalues
 # used to determine theoretical rate of convergence
 spectral_gap = np.abs(eigs[0])/np.abs(eigs[1]) - 1
-
-print("A=\n",A)
+print(f"spectral gap = {spectral_gap}")
 
 xinit = (np.random.rand(2*N)+1j*np.random.rand(2*N)).reshape(-1,1)
-print("xinit=\n",xinit)
 
 # apply different power methods for comparison purposes
 x1, errs1 = powermethod(A, xinit, iter, xtrue=U1)
@@ -86,5 +93,5 @@ plt.legend()
 plt.xlabel("n")
 plt.ylabel("relative error")
 plt.tight_layout()
-# plt.savefig("simple_relerr.eps")
+#plt.savefig("relerr_barbell.eps")
 plt.show()
