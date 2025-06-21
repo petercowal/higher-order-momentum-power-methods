@@ -46,13 +46,13 @@ plt.semilogy(iters, errs3, '-', marker='o', markevery=iter//10, label = 'order 2
 plt.semilogy(iters, errs4, '-', marker='*', markevery=iter//10, label = 'order 2 dyn momentum')
 
 # plot theoretical asymptotic convergence as well
-asympt = 0.5*np.exp(-iters*np.sqrt(spectral_gap))
-plt.semilogy(iters, asympt * errs3[100]/asympt[100], '--', label = r"$O(e^{-n\sqrt{\varepsilon}})$")
+asympt = np.exp(-iters*np.sqrt(spectral_gap))
+plt.semilogy(iters, 1.2 * asympt * errs3[100]/asympt[100], '--', label = r"$O(e^{-n\sqrt{\varepsilon}})$")
 plt.ylim(1e-10, 10)
 
 plt.legend()
 plt.xlabel("n")
 plt.ylabel("relative error")
 plt.tight_layout()
-# plt.savefig(f"{testname}_relerr.eps")
+# plt.savefig("simple_relerr.eps")
 plt.show()
