@@ -1,21 +1,11 @@
 import numpy as np
 
-def relerr_nophase(x, x0):
-    flat = x.flatten()
-    # use sum of terms to cancel phase
-    phase1 = np.sum(flat)
-    phase2 = np.sum(x0)
-    x1 = flat * (phase2/phase1)/np.abs(phase2/phase1)
-    return np.linalg.norm(x1 - x0)/np.linalg.norm(x0)
 
 def measure_error(x1, xtrue):
-    if xtrue is None:
-        return -1
-    return relerr_nophase(x1/np.linalg.norm(x1), xtrue)
+    x1 = x1.flatten() 
+    xtrue = xtrue.flatten()
+    return np.linalg.norm(np.vdot(x1,xtrue)/np.vdot(x1,x1)*x1-xtrue)/np.linalg.norm(xtrue)
 
-# implementation of the basic power method
-# returns the result x after n iterations
-# if a true solution is provided, also returns an array of error over time
 def powermethod(A, xinit, n, xtrue = None):
     errs = np.zeros(n+1)
     x0 = xinit
