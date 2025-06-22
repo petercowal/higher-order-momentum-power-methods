@@ -6,7 +6,8 @@ import matplotlib.pyplot as plt
 N = 4
 A = np.array([[1.01, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1/3, 0], [0, 0, 0, -1/3]])
 U = np.ones((4,4))
-U[1:,:] = U[1:,:] + np.random.randn(3,4) * 0.001  
+U[:,1:] = U[:,1:] + np.random.randn(4,3) * 0.001  
+print(U)
 A = U @ A @ np.linalg.inv(U)
 U1 = U[:,0].reshape(-1,1)  
 
