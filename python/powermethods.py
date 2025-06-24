@@ -108,8 +108,7 @@ def momentum_dynamic(A, v0, n, xtrue):
     nu2 = np.vdot(v3,x2)
     d2 = np.linalg.norm(v3 - nu2*x2)
     rho1 = np.min((d2/d1, 1))
-    #r2 = 1/(np.log(rho1)**2 + 1)
-    r2 = 1/(1+(rho1-1)**2)
+    r2 = 1/(np.log(rho1)**2 + 1)
     errs[3] = measure_error(v3, xtrue)
 
     for i in range(4,n+1):
