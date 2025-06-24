@@ -9,10 +9,10 @@ This repository contains code to reproduce the numerical experiments from Sectio
 ### Python and MATLAB Code
 These scripts reproduce the experiments described in Section 2.5:
 
-- **`example_simple.py` / `example_simple.m`**  
+- **`example_simple.py`  `example_simple.m`**  
   Reproduces results from **Section 2.5.1 – Toy Example**
 
-- **`example_barbell.py` / `example_barbell.m`**  
+- **`example_barbell.py`  `example_barbell.m`**  
   Reproduces results from **Section 2.5.2 – Stationary Distribution**
 
 ### Mathematica Code
