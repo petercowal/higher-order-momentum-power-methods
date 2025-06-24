@@ -2,8 +2,6 @@
 **Authors:** Peter Cowal, Nicholas F. Marshall, Sara Pollock  
 **arXiv preprint:** arXiv:25XX.XXXXX
 
-This repository contains code to reproduce the numerical experiments from Section 2.5 of the paper.
-
 ## Contents
 
 ### Python and MATLAB Code
