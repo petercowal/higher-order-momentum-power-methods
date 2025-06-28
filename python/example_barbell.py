@@ -43,9 +43,9 @@ theta = np.linspace(0, 2*np.pi, 60)
 curve = (2/3*np.exp(theta*1j) + 1/3*np.exp(-theta*2j))
 
 plt.plot(np.cos(theta), np.sin(theta), ':', label = "$|z| = 1$")
-plt.plot(np.real(curve), np.imag(curve), '--', label = "$\gamma^{(3)}$")
+plt.plot(np.real(curve), np.imag(curve), '--', label = r"$\gamma^{(3)}$")
 
-plt.plot(np.real(eigs), np.imag(eigs), '.', label = "$\lambda_n$")
+plt.plot(np.real(eigs), np.imag(eigs), '.', label = r"$\lambda_n$")
 plt.legend()
 plt.xlim(-1.2, 1.2)
 plt.ylim(-1.2, 1.2)
