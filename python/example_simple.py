@@ -22,7 +22,7 @@ print("xinit=\n",xinit)
 
 # momentum parameters
 beta = parameter_search(A, xinit, iter, np.linspace(0, 0.25, 100), U1)
-gamma = 4/27
+beta2 = 4/27
 
 # apply different power methods for comparison purposes
 x1, errs1 = powermethod(A, xinit, iter, xtrue=U1)
@@ -31,7 +31,7 @@ print("power method err=\n",errs1[-1])
 x2, errs2 = momentum(A, xinit, iter, beta, xtrue=U1)
 print("momentum method err=\n",errs2[-1])
 
-x3, errs3 = momentum2(A, xinit, iter, gamma, xtrue=U1)
+x3, errs3 = momentum2(A, xinit, iter, beta2, xtrue=U1)
 print("order 2 momentum method err=\n",errs3[-1])
 
 x4, errs4 = momentum_dynamic(A, xinit, iter, xtrue=U1)
@@ -41,8 +41,8 @@ print("order 2 dynamic momentum method err=\n",errs4[-1])
 iters = np.arange(iter+1)
 plt.subplots()
 plt.semilogy(iters, errs1, '-', marker='x', markevery=iter//10, label = 'power method')
-plt.semilogy(iters, errs2, '-', marker='s', markevery=iter//10, label = f'momentum ($\\beta = {beta:.2f}$)')
-plt.semilogy(iters, errs3, '-', marker='o', markevery=iter//10, label = 'order 2 momentum ($\\gamma = 4/27$)')
+plt.semilogy(iters, errs2, '-', marker='s', markevery=iter//10, label = f'momentum ($\\beta = {beta:.3f}$)')
+plt.semilogy(iters, errs3, '-', marker='o', markevery=iter//10, label = 'order 2 momentum ($\\beta = 4/27$)')
 plt.semilogy(iters, errs4, '-', marker='*', markevery=iter//10, label = 'order 2 dyn momentum')
 
 # plot theoretical asymptotic convergence as well

@@ -55,7 +55,7 @@ xinit = (np.random.rand(2*N)+1j*np.random.rand(2*N)).reshape(-1,1)
 
 # momentum parameters
 beta = parameter_search(A, xinit, iter, np.linspace(0.2, 0.25, 20), U1)
-gamma = 4*np.abs(eigs[1])**3/27
+beta2 = 4*np.abs(eigs[1])**3/27
 
 # relative gap between magnitude of 1st and 2nd eigenvalues
 # used to determine theoretical rate of convergence
@@ -71,7 +71,7 @@ print("power method err=\n",errs1[-1])
 x2, errs2 = momentum(A, xinit, iter, beta, xtrue=U1)
 print("momentum method err=\n",errs2[-1])
 
-x3, errs3 = momentum2(A, xinit, iter, gamma, xtrue=U1)
+x3, errs3 = momentum2(A, xinit, iter, beta2, xtrue=U1)
 print("order 2 momentum method err=\n",errs3[-1])
 
 x4, errs4 = momentum_dynamic(A, xinit, iter, xtrue=U1)
@@ -81,8 +81,8 @@ print("order 2 dynamic momentum method err=\n",errs4[-1])
 iters = np.arange(iter+1)
 plt.subplots()
 plt.semilogy(iters, errs1, '-', marker='x', markevery=iter//10, label = 'power method')
-plt.semilogy(iters, errs2, '-', marker='s', markevery=iter//10, label = f'momentum ($\\beta = {beta:.2f}$)')
-plt.semilogy(iters, errs3, '-', marker='o', markevery=iter//10, label = 'order 2 momentum')
+plt.semilogy(iters, errs2, '-', marker='s', markevery=iter//10, label = f'momentum ($\\beta = {beta:.3f}$)')
+plt.semilogy(iters, errs3, '-', marker='o', markevery=iter//10, label = f'order 2 momentum ($\\beta = {beta2:.3f}$)')
 plt.semilogy(iters, errs4, '-', marker='*', markevery=iter//10, label = 'order 2 dyn momentum')
 
 # plot theoretical asymptotic convergence as well
