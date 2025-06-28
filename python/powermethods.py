@@ -2,11 +2,11 @@ import numpy as np
 
 
 def measure_error(x1, xtrue):
-    x1 = x1.flatten() 
+    x1 = x1.flatten()
     xtrue = xtrue.flatten()
     return np.linalg.norm(np.vdot(x1,xtrue)/np.vdot(x1,x1)*x1-xtrue)/np.linalg.norm(xtrue)
 
-# Algorithm 2.1 Power Method from our paper 
+# Algorithm 2.1 Power Method from our paper
 def powermethod(A, v0, n, xtrue):
     errs = np.zeros(n+1)
     errs[0] = measure_error(v0, xtrue)
@@ -137,4 +137,14 @@ def momentum_dynamic(A, v0, n, xtrue):
         errs[i] = measure_error(v3, xtrue)
     return v3/np.linalg.norm(v3), errs
 
+# for a fairer representation of the 1st order momentum algorithm,
+# search across a variety of parameters to find the best
+def parameter_search(A, v0, n, betas, xtrue):
+    errs = np.zeros(betas.shape)
 
+    for i in range(len(errs)):
+        beta = betas[i]
+        _, err = momentum(A, v0, n, beta, xtrue)
+        errs[i] = err[-1]
+
+    return betas[np.argmin(errs)]

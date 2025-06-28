@@ -1,5 +1,5 @@
 import numpy as np
-from powermethods import powermethod, momentum, momentum2, momentum_dynamic
+from powermethods import powermethod, momentum, momentum2, momentum_dynamic, parameter_search
 import matplotlib.pyplot as plt
 
 # generate barbell graph transition matrix
@@ -51,9 +51,10 @@ plt.xlim(-1.2, 1.2)
 plt.ylim(-1.2, 1.2)
 plt.axis('square')
 
+xinit = (np.random.rand(2*N)+1j*np.random.rand(2*N)).reshape(-1,1)
 
 # momentum parameters
-beta = np.abs(eigs[1])**2/4
+beta = parameter_search(A, xinit, iter, np.linspace(0.2, 0.25, 20), U1)
 gamma = 4*np.abs(eigs[1])**3/27
 
 # relative gap between magnitude of 1st and 2nd eigenvalues
@@ -61,7 +62,7 @@ gamma = 4*np.abs(eigs[1])**3/27
 spectral_gap = np.abs(eigs[0])/np.abs(eigs[1]) - 1
 print(f"spectral gap = {spectral_gap}")
 
-xinit = (np.random.rand(2*N)+1j*np.random.rand(2*N)).reshape(-1,1)
+
 
 # apply different power methods for comparison purposes
 x1, errs1 = powermethod(A, xinit, iter, xtrue=U1)
@@ -80,13 +81,13 @@ print("order 2 dynamic momentum method err=\n",errs4[-1])
 iters = np.arange(iter+1)
 plt.subplots()
 plt.semilogy(iters, errs1, '-', marker='x', markevery=iter//10, label = 'power method')
-plt.semilogy(iters, errs2, '-', marker='s', markevery=iter//10, label = 'momentum')
+plt.semilogy(iters, errs2, '-', marker='s', markevery=iter//10, label = f'momentum ($\\beta = {beta:.2f}$)')
 plt.semilogy(iters, errs3, '-', marker='o', markevery=iter//10, label = 'order 2 momentum')
 plt.semilogy(iters, errs4, '-', marker='*', markevery=iter//10, label = 'order 2 dyn momentum')
 
 # plot theoretical asymptotic convergence as well
 asympt = np.exp(-iters*np.sqrt(spectral_gap))
-plt.semilogy(iters, 1.2 * asympt * errs3[100]/asympt[100], '--', label = r"$O(e^{-n\sqrt{\varepsilon}})$")
+plt.semilogy(iters, asympt * errs3[-1]/asympt[-1], '--', label = r"$O(e^{-n\sqrt{\varepsilon}})$")
 plt.ylim(1e-10, 10)
 
 plt.legend()

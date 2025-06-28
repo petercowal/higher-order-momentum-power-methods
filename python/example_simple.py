@@ -1,5 +1,5 @@
 import numpy as np
-from powermethods import powermethod, momentum, momentum2, momentum_dynamic
+from powermethods import powermethod, momentum, momentum2, momentum_dynamic, parameter_search
 import matplotlib.pyplot as plt
 
 # simple 4x4 example with eigenvalues that lie within a deltoid
@@ -11,10 +11,6 @@ U1[0] = 1
 # iteration count
 iter = 200
 
-# momentum parameters
-beta = 1/4
-gamma = 4/27
-
 # relative gap between magnitude of 1st and 2nd eigenvalues
 # used to determine theoretical rate of convergence
 spectral_gap = 0.01
@@ -23,6 +19,10 @@ print("A=\n",A)
 
 xinit = (np.random.rand(N)+1j*np.random.rand(N)).reshape(-1,1)
 print("xinit=\n",xinit)
+
+# momentum parameters
+beta = parameter_search(A, xinit, iter, np.linspace(0, 0.25, 100), U1)
+gamma = 4/27
 
 # apply different power methods for comparison purposes
 x1, errs1 = powermethod(A, xinit, iter, xtrue=U1)
@@ -41,13 +41,13 @@ print("order 2 dynamic momentum method err=\n",errs4[-1])
 iters = np.arange(iter+1)
 plt.subplots()
 plt.semilogy(iters, errs1, '-', marker='x', markevery=iter//10, label = 'power method')
-plt.semilogy(iters, errs2, '-', marker='s', markevery=iter//10, label = 'momentum')
-plt.semilogy(iters, errs3, '-', marker='o', markevery=iter//10, label = 'order 2 momentum')
+plt.semilogy(iters, errs2, '-', marker='s', markevery=iter//10, label = f'momentum ($\\beta = {beta:.2f}$)')
+plt.semilogy(iters, errs3, '-', marker='o', markevery=iter//10, label = 'order 2 momentum ($\\gamma = 4/27$)')
 plt.semilogy(iters, errs4, '-', marker='*', markevery=iter//10, label = 'order 2 dyn momentum')
 
 # plot theoretical asymptotic convergence as well
 asympt = np.exp(-iters*np.sqrt(spectral_gap))
-plt.semilogy(iters, 1.2 * asympt * errs3[100]/asympt[100], '--', label = r"$O(e^{-n\sqrt{\varepsilon}})$")
+plt.semilogy(iters, 1.2 * asympt * errs3[-1]/asympt[-1], '--', label = r"$O(e^{-n\sqrt{\varepsilon}})$")
 plt.ylim(1e-10, 10)
 
 plt.legend()
