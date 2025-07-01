@@ -1,5 +1,5 @@
 import numpy as np
-from powermethods import powermethod, momentum, momentum2, momentum_dynamic, parameter_search
+from powermethods import powermethod, momentum, momentum2, momentum_dynamic
 import matplotlib.pyplot as plt
 
 # simple 4x4 example with eigenvalues that lie within a deltoid
@@ -21,7 +21,7 @@ xinit = (np.random.rand(N)+1j*np.random.rand(N)).reshape(-1,1)
 print("xinit=\n",xinit)
 
 # momentum parameters
-beta = parameter_search(A, xinit, iter, np.linspace(0, 0.25, 100), U1)
+beta = 1/4
 beta2 = 4/27
 
 # apply different power methods for comparison purposes
@@ -47,7 +47,7 @@ plt.semilogy(iters, errs4, '-', marker='*', markevery=iter//10, label = 'order 2
 
 # plot theoretical asymptotic convergence as well
 asympt = np.pow(1+np.sqrt(spectral_gap), -iters)
-plt.semilogy(iters, 1.2 * asympt * errs3[-1]/asympt[-1], '--', label = r"$O((1+\sqrt{\varepsilon})^{-N})$")
+plt.semilogy(iters, asympt * errs3[-1]/asympt[-1], '--', label = r"$O((1+\sqrt{\varepsilon})^{-N})$")
 plt.ylim(1e-10, 10)
 
 plt.legend()

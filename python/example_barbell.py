@@ -1,5 +1,5 @@
 import numpy as np
-from powermethods import powermethod, momentum, momentum2, momentum_dynamic, parameter_search
+from powermethods import powermethod, momentum, momentum2, momentum_dynamic
 import matplotlib.pyplot as plt
 
 # generate barbell graph transition matrix
@@ -54,7 +54,7 @@ plt.axis('square')
 xinit = (np.random.rand(2*N)+1j*np.random.rand(2*N)).reshape(-1,1)
 
 # momentum parameters
-beta = parameter_search(A, xinit, iter, np.linspace(0.2, 0.25, 20), U1)
+beta = np.abs(eigs[1])**2/4
 beta2 = 4*np.abs(eigs[1])**3/27
 
 # relative gap between magnitude of 1st and 2nd eigenvalues
