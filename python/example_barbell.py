@@ -4,6 +4,11 @@ import matplotlib.pyplot as plt
 import scipy.sparse as spspr
 np.random.seed(0)
 
+# LaTeX style formatting
+from matplotlib import rc
+rc('font', **{'family': 'serif', 'serif': ['Computer Modern']})
+rc('text', usetex=True)
+
 # generate barbell graph transition matrix
 N = 16000
 p = 1/1000
@@ -92,7 +97,7 @@ print("order 2 dynamic momentum method err=\n",errs4[-1])
 
 # plot results
 iters = np.arange(iter+1)
-plt.subplots()
+plt.subplots(figsize=(4.5,3.5))
 plt.semilogy(iters, errs1, '-', marker='x', markevery=iter//10, label = 'power method')
 plt.semilogy(iters, errs2, '-', marker='s', markevery=iter//10, label = f'momentum ($\\beta = {beta:.3f}$)')
 plt.semilogy(iters, errs3, '-', marker='o', markevery=iter//10, label = f'order 2 momentum ($\\beta = {beta2:.3f}$)')
