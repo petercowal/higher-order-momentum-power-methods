@@ -1,4 +1,5 @@
-# Code for: *Faber polynomials and dynamic momentum for eigenvalue problems*  
+# Code for: 
+**Title:** Faber polynomials in a deltoid region and power iteration momentum methods
 **Authors:** Peter Cowal, Nicholas F. Marshall, Sara Pollock  
 **arXiv preprint:** arXiv:25XX.XXXXX
 
