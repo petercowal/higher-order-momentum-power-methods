@@ -1,35 +1,47 @@
 import numpy as np
 from powermethods import powermethod, momentum, momentum2, momentum_dynamic
 import matplotlib.pyplot as plt
+import scipy.sparse as spspr
 
 # generate barbell graph transition matrix
-N = 160
-p = 1/10
+N = 16000
+p = 1/1000
+print("generating B",end='')
+rows = [N,N-1]
+cols = [N-1,N]
+data = [1,1]
+for i in range(N):
+    randos = np.random.rand(N)
+    if i%1000 == 0:
+        print('.',end='',flush=True)
+    for j in range(N):
+        if randos[j] < p:
+            rows.append(i)
+            cols.append(j)
+            data.append(1)
+for i in range(N,2*N):
+    randos = np.random.rand(N)
+    if i%1000 == 0:
+        print('.',end='',flush=True)
+    for j in range(N,2*N):
+        if randos[j-N] < p:
+            rows.append(i)
+            cols.append(j)
+            data.append(1)
+B = spspr.coo_array((data, (rows, cols)), shape=(2*N, 2*N)).tocsr()
 
-X1 = np.ones((N, N)) * (np.random.rand(N, N) < p)
-X2 = np.ones((N, N)) * (np.random.rand(N, N) < p)
-
-B = np.block([
-    [X1, np.zeros((N, N))],
-    [np.zeros((N, N)), X2]
-])
-
-B[N,N-1] = 1
-B[N-1,N] = 1
-
-Dinv = np.diag(1/np.sum(B, axis=0))
+print("done!")
+print("normalizing columns")
+Dinv = spspr.diags(1/np.sum(B, axis=0))
 
 A = B @ Dinv
 
-plt.figure()
-plt.imshow(A)
-plt.colorbar()
-
 # iteration count
-iter = 500
+iter = 5000
 
+print("finding eigenvalues")
 # compute eigenvalues and plot them for reference
-eigs, U = np.linalg.eig(A)
+eigs, U = spspr.linalg.eigs(A)
 # sort them from largest to smallest magnitude
 idx = np.argsort(-np.abs(eigs))
 eigs = eigs[idx]
@@ -88,7 +100,7 @@ plt.semilogy(iters, errs4, '-', marker='*', markevery=iter//10, label = 'order 2
 # plot theoretical asymptotic convergence as well
 asympt = np.pow(1+np.sqrt(spectral_gap), -iters)
 plt.semilogy(iters, asympt * errs3[-1]/asympt[-1], '--', label = r"$O((1+\sqrt{\varepsilon})^{-N})$")
-plt.ylim(1e-10, 10)
+plt.ylim(1e-8, 10)
 
 plt.legend()
 plt.xlabel("n")
