@@ -4,13 +4,13 @@
 
 ## Contents
 
-### Python and MATLAB Code
+### Python Code
 These scripts reproduce the experiments described in Section 2.5:
 
-- **`example_simple.py`  `example_simple.m`**  
+- **`example_simple.py`**  
   Reproduces results from **Section 2.5.1 – Toy Example**
 
-- **`example_barbell.py`  `example_barbell.m`**  
+- **`example_barbell.py`**  
   Reproduces results from **Section 2.5.2 – Stationary Distribution**
 
 ### Mathematica Code
