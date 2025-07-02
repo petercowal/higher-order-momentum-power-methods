@@ -2,8 +2,6 @@
 **Authors:** Peter Cowal, Nicholas F. Marshall, Sara Pollock  
 **arXiv preprint:** arXiv:25XX.XXXXX
 
-## Contents
-
 ### Python Code
 These scripts reproduce the experiments described in Section 2.5:
 
