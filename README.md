@@ -1,5 +1,4 @@
-# Code for: 
-Faber polynomials in a deltoid region and power iteration momentum methods
+## Code for: Faber polynomials in a deltoid region and power iteration momentum methods
 
 **Authors:** Peter Cowal, Nicholas F. Marshall, Sara Pollock  
 
