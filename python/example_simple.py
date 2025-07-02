@@ -1,6 +1,7 @@
 import numpy as np
 from powermethods import powermethod, momentum, momentum2, momentum_dynamic
 import matplotlib.pyplot as plt
+np.random.seed(0)
 
 # simple 4x4 example with eigenvalues that lie within a deltoid
 N = 4
@@ -54,5 +55,5 @@ plt.legend()
 plt.xlabel("n")
 plt.ylabel("relative error")
 plt.tight_layout()
-#plt.savefig("relerr_simple.eps")
+plt.savefig("relerr_simple.eps")
 plt.show()

@@ -2,6 +2,7 @@ import numpy as np
 from powermethods import powermethod, momentum, momentum2, momentum_dynamic
 import matplotlib.pyplot as plt
 import scipy.sparse as spspr
+np.random.seed(0)
 
 # generate barbell graph transition matrix
 N = 16000
@@ -106,5 +107,5 @@ plt.legend()
 plt.xlabel("n")
 plt.ylabel("relative error")
 plt.tight_layout()
-#plt.savefig("relerr_barbell.eps")
+plt.savefig("relerr_barbell.eps")
 plt.show()
