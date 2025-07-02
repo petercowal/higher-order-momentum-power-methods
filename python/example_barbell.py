@@ -4,10 +4,10 @@ import matplotlib.pyplot as plt
 import scipy.sparse as spspr
 np.random.seed(0)
 
-# LaTeX style formatting
-from matplotlib import rc
-rc('font', **{'family': 'serif', 'serif': ['Computer Modern']})
-rc('text', usetex=True)
+# uncomment for LaTeX style formatting
+#from matplotlib import rc
+#rc('font', **{'family': 'serif', 'serif': ['Computer Modern']})
+#rc('text', usetex=True)
 
 # generate barbell graph transition matrix
 N = 16000
