@@ -47,9 +47,9 @@ print("order 2 dynamic momentum method err=\n",errs4[-1])
 iters = np.arange(iter+1)
 plt.subplots(figsize=(4.5,3.5))
 plt.semilogy(iters, errs1, '-', marker='x', markevery=iter//10, label = 'power method')
-plt.semilogy(iters, errs2, '-', marker='s', markevery=iter//10, label = f'momentum ($\\beta = {beta:.3f}$)')
-plt.semilogy(iters, errs3, '-', marker='o', markevery=iter//10, label = 'order 2 momentum ($\\beta = 4/27$)')
-plt.semilogy(iters, errs4, '-', marker='*', markevery=iter//10, label = 'order 2 dyn momentum')
+plt.semilogy(iters, errs2, '-', marker='s', markevery=iter//10, label = f'order 1 ($\\beta = {beta:.3f}$)')
+plt.semilogy(iters, errs3, '-', marker='o', markevery=iter//10, label = 'order 2 ($\\beta = 4/27$)')
+plt.semilogy(iters, errs4, '-', marker='*', markevery=iter//10, label = 'order 2 dyn')
 
 # plot theoretical asymptotic convergence as well
 asympt = np.pow(1+np.sqrt(spectral_gap), -iters)
