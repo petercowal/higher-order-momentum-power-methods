@@ -2,7 +2,7 @@
 
 **Authors:** Peter Cowal, Nicholas F. Marshall, Sara Pollock  
 
-**arXiv preprint:** arXiv:25XX.XXXXX
+**arXiv preprint:** [https://arxiv.org/abs/2507.01885](https://arxiv.org/abs/2507.01885) 
 
 ### `python/`
 These scripts reproduce the experiments described in Section 2.5:
