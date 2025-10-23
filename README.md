@@ -6,11 +6,8 @@
 
 These scripts reproduce the experiments described in **Section 2.5 - Numerical Results**.
 
-- **`example_simple.py`** and **`example_simple_dynamic.py`**
-  Reproduce results from **Section 2.5.1 – Toy Example**
+- **`example_simple.py`** and **`example_simple_dynamic.py`** reproduce results from **Section 2.5.1 – Toy Example**
 
-- **`example_barbell.py`**  
-  Reproduces results from **Section 2.5.2 – Barbell Example**
+- **`example_barbell.py`** reproduces results from **Section 2.5.2 – Barbell Example**
 
-- **`example_barbell_big.py`** and **`example_sparse.py`**
-  Reproduce results from **Section 2.5.2 – Barbell Example**
+- **`example_barbell_big.py`** and **`example_sparse.py`** reproduce results from **Section 2.5.2 – Barbell Example**
