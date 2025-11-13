@@ -6,7 +6,7 @@ def measure_error(x1, xtrue):
     xtrue = xtrue.flatten()
     return np.linalg.norm(np.vdot(x1,xtrue)/np.vdot(x1,x1)*x1-xtrue)/np.linalg.norm(xtrue)
 
-# Algorithm 2.1 Power Method from our paper
+# Algorithm 1 Power Method from https://arxiv.org/abs/2507.01885
 def powermethod(A, v0, n, xtrue):
     errs = np.zeros(n+1)
     errs[0] = measure_error(v0, xtrue)
@@ -48,7 +48,7 @@ def momentum(A, v0, n, beta, xtrue):
         errs[i] = measure_error(v2, xtrue)
     return v2/np.linalg.norm(v2), errs
 
-# Algorithm 2.2 Deltoid Momentum Power Method from our paper
+# Algorithm 2 Deltoid Momentum Power Method from https://arxiv.org/abs/2507.01885
 def momentum2(A, v0, n, beta, xtrue):
     errs = np.zeros(n+1)
     errs[0] = measure_error(v0, xtrue)
@@ -82,7 +82,7 @@ def momentum2(A, v0, n, beta, xtrue):
     return x3, errs
 
 
-# Algorithm 2.3 Dynamic Deltoid Momentum Power Method from our paper
+# Algorithm 3 Dynamic Deltoid Momentum Power Method from https://arxiv.org/abs/2507.01885
 def momentum_dynamic(A, v0, n, xtrue):
     errs = np.zeros(n+1)
     errs[0] = measure_error(v0, xtrue)
